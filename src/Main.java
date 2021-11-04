@@ -14,8 +14,7 @@ public class Main {
             Travel travel = splitString(travelLine);
             travels.add(travel);
         }
-        System.out.println(TravelScanner.getMostUsedBike(travels));
-        System.out.println(travels.size());
+        TravelScanner.getMostUsedBike(travels);
 
     }
 

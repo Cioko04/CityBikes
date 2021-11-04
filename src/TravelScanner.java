@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class TravelScanner {
 
@@ -9,19 +8,18 @@ public class TravelScanner {
             bikeNumbers.add(Integer.parseInt(travels.get(i).getBikeNumber()));
         }
         Collections.sort(bikeNumbers);
-        int temporaryCounter = 1, temporaryBike = 0, bigestCounter = 0, bikeWithBigestCounter = 0;
+        int counter = 0, bikeNumber = bikeNumbers.get(0), bigestCounter = 0, bikeWithBigestCounter = 0;
         for (int x: bikeNumbers) {
-            if (temporaryBike != x ){
-                if(temporaryCounter > bigestCounter){
-                    bigestCounter = temporaryCounter;
-                    bikeWithBigestCounter = temporaryBike;
+            if(x == bikeNumber){
+                counter ++;
+            }else if(x != bikeNumber){
+                if(counter > bigestCounter){
+                    bigestCounter = counter;
+                    bikeWithBigestCounter = bikeNumber;
                 }
-                temporaryBike = x;
-                temporaryCounter = 1;
-            }else if(temporaryBike == x){
-                temporaryCounter++;
+                counter = 0;
+                bikeNumber = x;
             }
-
         }
         return bikeWithBigestCounter;
     }

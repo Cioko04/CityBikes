@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class TravelScanner {
 
-    public static void getMostUsedBike(ArrayList<Travel> travels) {
+    public static int getMostUsedBike(ArrayList<Travel> travels) {
         ArrayList<Integer> bikeNumbers = new ArrayList<>();
         for (int i = 1; i < travels.size(); i++) {
             bikeNumbers.add(Integer.parseInt(travels.get(i).getBikeNumber()));
@@ -24,8 +23,6 @@ public class TravelScanner {
             }
 
         }
-        System.out.println("Bike number: " + bikeWithBigestCounter + " Count: " + bigestCounter);
-
-
+        return bikeWithBigestCounter;
     }
 }

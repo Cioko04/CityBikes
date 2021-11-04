@@ -1,28 +1,30 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class TravelScanner {
 
     public static void getMostUsedBike(ArrayList<Travel> travels) {
-        String bikeNumber = "", saveBikeNumber = "";
-        int counter = 0, saveCounter = 0;
+        ArrayList<Integer> bikeNumbers = new ArrayList<>();
         for (int i = 1; i < travels.size(); i++) {
-            if (!bikeNumber.equals(travels.get(i).getBikeNumber())){
-                bikeNumber = travels.get(i).getBikeNumber();
-                counter = 0;
-                for (int j = i; j < travels.size(); j++) {
-                    if (bikeNumber.equals(travels.get(j).getBikeNumber())){
-                        counter++;
-                    }
-                }
-                if(saveCounter < counter){
-                    saveCounter = counter;
-                    saveBikeNumber = bikeNumber;
-                }
-            }else {
-                continue;
-            }
+            bikeNumbers.add(Integer.parseInt(travels.get(i).getBikeNumber()));
         }
-        System.out.println("Bike number: " + saveBikeNumber + " Counter: " + saveCounter);
+        Collections.sort(bikeNumbers);
+        int temporaryCounter = 1, temporaryBike = 0, bigestCounter = 0, bikeWithBigestCounter = 0;
+        for (int x: bikeNumbers) {
+            if (temporaryBike != x ){
+                if(temporaryCounter > bigestCounter){
+                    bigestCounter = temporaryCounter;
+                    bikeWithBigestCounter = temporaryBike;
+                }
+                temporaryBike = x;
+                temporaryCounter = 1;
+            }else if(temporaryBike == x){
+                temporaryCounter++;
+            }
+
+        }
+        System.out.println("Bike number: " + bikeWithBigestCounter + " Count: " + bigestCounter);
 
 
     }

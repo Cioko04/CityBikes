@@ -6,15 +6,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("przejazdy.csv");
-        Scanner scanner = new Scanner(file);
-        ArrayList<Travel> travels = new ArrayList<>();
-
-        while (scanner.hasNext()){
-            String travelLine = scanner.nextLine();
-            Travel travel = splitString(travelLine);
-            travels.add(travel);
-        }
-        System.out.println("Most used bike is: " + TravelScanner.getMostUsedBike(travels));
+        ArrayList<Travel> travels = readData(file);
+        System.out.println("Most used bikes id's: " + TravelScanner.getMostUsedBike(travels));
+        System.out.println("Least used bikes id's: " + TravelScanner.getLeastUsedBike(travels));
 
     }
 
@@ -28,5 +22,17 @@ public class Main {
         String returnPlace = split[6];
         return new Travel(id,bikeNumber,startTime,endTime,rentalPlace,returnPlace);
 
+    }
+
+    public static ArrayList<Travel> readData(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        ArrayList<Travel> travels = new ArrayList<>();
+
+        while (scanner.hasNext()){
+            String travelLine = scanner.nextLine();
+            Travel travel = splitString(travelLine);
+            travels.add(travel);
+        }
+        return travels;
     }
 }

@@ -1,7 +1,14 @@
 import java.util.*;
 
 public class TravelScanner {
-    private static ArrayList<Integer> sortListOfBikeNumber(ArrayList<Travel> travels){
+    private ArrayList<Travel> travels;
+    private Map<Integer, Integer> bikeMap;
+    public TravelScanner(ArrayList<Travel> travels) {
+        this.travels = travels;
+        this.bikeMap = addBikeNumbersToMap(sortListOfBikeNumber());
+    }
+
+    private ArrayList<Integer> sortListOfBikeNumber(){
         ArrayList<Integer> bikeNumbers = new ArrayList<>();
         for (int i = 1; i < travels.size(); i++) {
             bikeNumbers.add(Integer.parseInt(travels.get(i).getBikeNumber()));
@@ -9,10 +16,10 @@ public class TravelScanner {
         Collections.sort(bikeNumbers);
         return bikeNumbers;
     }
-    private static Map<Integer, Integer> addBikeNumbersToMap(ArrayList<Integer> travels) {
+    private Map<Integer, Integer> addBikeNumbersToMap(ArrayList<Integer> bikeNumbers) {
         Map<Integer, Integer> bikeMap = new HashMap<>();
-        int counter = 0, bikeNumber = travels.get(0);
-        for (int x: travels) {
+        int counter = 0, bikeNumber = bikeNumbers.get(0);
+        for (int x: bikeNumbers) {
             if(x == bikeNumber){
                 counter ++;
             }else if(x != bikeNumber){
@@ -24,9 +31,7 @@ public class TravelScanner {
         return bikeMap;
     }
 
-    public static List<Integer> getMostUsedBike(ArrayList<Travel> travels){
-        ArrayList<Integer> bikeNumbers = sortListOfBikeNumber(travels);
-        Map<Integer, Integer> bikeMap = addBikeNumbersToMap(bikeNumbers);
+    public List<Integer> getMostUsedBike(){
         int maxValue = Collections.max(bikeMap.values());
         List<Integer> keys = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : bikeMap.entrySet()) {
@@ -37,9 +42,7 @@ public class TravelScanner {
         return keys;
 
     }
-    public static List<Integer> getLeastUsedBike(ArrayList<Travel> travels){
-        ArrayList<Integer> bikeNumbers = sortListOfBikeNumber(travels);
-        Map<Integer, Integer> bikeMap = addBikeNumbersToMap(bikeNumbers);
+    public List<Integer> getLeastUsedBike(){
         int minValue = Collections.min(bikeMap.values());
         List<Integer> keys = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : bikeMap.entrySet()) {

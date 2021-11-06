@@ -7,8 +7,9 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("przejazdy.csv");
         ArrayList<Travel> travels = readData(file);
-        System.out.println("Most used bikes id's: " + TravelScanner.getMostUsedBike(travels));
-        System.out.println("Least used bikes id's: " + TravelScanner.getLeastUsedBike(travels));
+        TravelScanner travelScanner = new TravelScanner(travels);
+        System.out.println("Most used bikes id's: " + travelScanner.getMostUsedBike());
+        System.out.println("Least used bikes id's: " + travelScanner.getLeastUsedBike());
 
     }
 

@@ -10,6 +10,7 @@ public class Main {
         TravelScanner travelScanner = new TravelScanner(travels);
         System.out.println("Most used bikes id's: " + travelScanner.getMostUsedBike());
         System.out.println("Least used bikes id's: " + travelScanner.getLeastUsedBike());
+        System.out.println("Most used rental place is: " + travelScanner.getMostUsedRentalPlace());
 
     }
 
@@ -24,7 +25,6 @@ public class Main {
         return new Travel(id,bikeNumber,startTime,endTime,rentalPlace,returnPlace);
 
     }
-
     public static ArrayList<Travel> readData(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         ArrayList<Travel> travels = new ArrayList<>();

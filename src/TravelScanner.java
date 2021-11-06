@@ -10,6 +10,7 @@ public class TravelScanner {
         this.travels = travels;
         this.bikeMap = addBikeNumbersToMap(sortListOfBikeNumber());
         this.rentalPlaceMap = addRentalPlacesToMap(sortListOfRentalPlace());
+        this.returnPlaceMap = addReturnPlacesToMap(sortListOfReturnPlace());
     }
 
     private ArrayList<Integer> sortListOfBikeNumber(){
@@ -30,6 +31,17 @@ public class TravelScanner {
         }
         Collections.sort(rentalPlace);
         return rentalPlace;
+    }
+    private ArrayList<String> sortListOfReturnPlace(){
+        ArrayList<String> returnPlace = new ArrayList<>();
+        for (int i = 1; i < travels.size(); i++) {
+            if (!travels.get(i).getReturnPlace().equals("Poza stacją")){
+                returnPlace.add(travels.get(i).getReturnPlace());
+            }
+
+        }
+        Collections.sort(returnPlace);
+        return returnPlace;
     }
 
     private Map<Integer, Integer> addBikeNumbersToMap(ArrayList<Integer> bikeNumbers) {
@@ -59,8 +71,22 @@ public class TravelScanner {
                 rentalPlace = x;
             }
         }
-        System.out.println(rentalPlaceMap);
         return rentalPlaceMap;
+    }
+    private Map<String, Integer> addReturnPlacesToMap(ArrayList<String> returnPlaces) {
+        Map<String, Integer> returnPlaceMap = new HashMap<>();
+        int counter = 0;
+        String returnPlace = returnPlaces.get(0);
+        for (String x: returnPlaces) {
+            if(x.equals(returnPlace)){
+                counter ++;
+            }else if(!x.equals(returnPlace)){
+                returnPlaceMap.put(returnPlace, counter);
+                counter = 0;
+                returnPlace = x;
+            }
+        }
+        return returnPlaceMap;
     }
 
 
@@ -98,10 +124,32 @@ public class TravelScanner {
 
     }
     public List<String> getLeastUsedRentalPlace(){
-        int maxValue = Collections.min(rentalPlaceMap.values());
+        int minValue = Collections.min(rentalPlaceMap.values());
         List<String> keys = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : rentalPlaceMap.entrySet()) {
+            if (entry.getValue() == minValue) {
+                keys.add(entry.getKey());
+            }
+        }
+        return keys;
+
+    }
+    public List<String> getMostUsedRenturnPlace(){
+        int maxValue = Collections.max(returnPlaceMap.values());
+        List<String> keys = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : returnPlaceMap.entrySet()) {
             if (entry.getValue() == maxValue) {
+                keys.add(entry.getKey());
+            }
+        }
+        return keys;
+
+    }
+    public List<String> getLeastUsedReturnPlace(){
+        int minValue = Collections.min(returnPlaceMap.values());
+        List<String> keys = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : returnPlaceMap.entrySet()) {
+            if (entry.getValue() == minValue) {
                 keys.add(entry.getKey());
             }
         }

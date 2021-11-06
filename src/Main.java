@@ -12,6 +12,8 @@ public class Main {
         System.out.println("Least used bikes id's: " + travelScanner.getLeastUsedBike());
         System.out.println("Most used rental place is: " + travelScanner.getMostUsedRentalPlace());
         System.out.println("Least used rental place is: " + travelScanner.getLeastUsedRentalPlace());
+        System.out.println("Most used return place is: " + travelScanner.getMostUsedRenturnPlace());
+        System.out.println("Least used return place is: " + travelScanner.getLeastUsedReturnPlace());
 
 
     }

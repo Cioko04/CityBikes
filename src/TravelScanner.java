@@ -97,6 +97,17 @@ public class TravelScanner {
         return keys;
 
     }
+    public List<String> getLeastUsedRentalPlace(){
+        int maxValue = Collections.min(rentalPlaceMap.values());
+        List<String> keys = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : rentalPlaceMap.entrySet()) {
+            if (entry.getValue() == maxValue) {
+                keys.add(entry.getKey());
+            }
+        }
+        return keys;
+
+    }
 
 
 }

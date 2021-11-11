@@ -187,7 +187,7 @@ public class TravelScanner {
         return keys;
 
     }
-    public Map<String, Integer> getLongestTravel(){
+    public String getLongestTravelId(){
         int maxValue = Collections.max(timeTravelMap.values());
         String key = new String();
         for (Map.Entry<String, Integer> entry : timeTravelMap.entrySet()) {
@@ -195,9 +195,19 @@ public class TravelScanner {
                 key = entry.getKey();
             }
         }
-        Map<String,Integer> mapOfLongestRide = new HashMap<>();
-        mapOfLongestRide.put(key,timeTravelMap.get(key));
-        return mapOfLongestRide;
+        return key;
+    }
+    private int getMaxValueFromTimeTravelMap(){
+        return Collections.max(timeTravelMap.values());
+    }
+    public int getTimeTravelInHours(){
+        return Collections.max(timeTravelMap.values())/60/60;
+    }
+    public int getTimeTravelInMinutes(){
+        return Collections.max(timeTravelMap.values())/60%60;
+    }
+    public int getTimeTravelInSeconds(){
+        return Collections.max(timeTravelMap.values())%60;
     }
 
 

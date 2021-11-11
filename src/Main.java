@@ -1,13 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -15,23 +9,29 @@ public class Main {
         File file = new File("przejazdy.csv");
         ArrayList<Travel> travels = readData(file);
         TravelScanner travelScanner = new TravelScanner(travels);
-        System.out.println("Most used bikes id's: " + travelScanner.getMostUsedBike());
-        System.out.println("Least used bikes id's: " + travelScanner.getLeastUsedBike());
-        System.out.println("Most used rental place is: " + travelScanner.getMostUsedRentalPlace());
-        System.out.println("Least used rental place is: " + travelScanner.getLeastUsedRentalPlace());
-        System.out.println("Most used return place is: " + travelScanner.getMostUsedRenturnPlace());
-        System.out.println("Least used return place is: " + travelScanner.getLeastUsedReturnPlace());
-        Collection<String> idOfLongestRide = travelScanner.getLongestTravel().keySet();
-        Collection<Integer> secondsOfLongestRide = travelScanner.getLongestTravel().values();
-        int timeOfRide = (int) secondsOfLongestRide.toArray()[0];
-        int hoursOfRide = timeOfRide/60/60;
-        int minutesOfRide = timeOfRide/60%60;
-        int secondsOfRide = timeOfRide%60;
-        System.out.println(timeOfRide);
-        System.out.println("Longest ride id's: " + idOfLongestRide.toArray()[0]);
-        System.out.println("Hours: " + hoursOfRide);
-        System.out.println("Minutes: " + minutesOfRide);
-        System.out.println("Seconds: " + secondsOfRide);
+
+        //Return numbers of most used bike
+        //getMostUsedBike(travelScanner);
+
+        //Return numbers of least used bike
+        //getLeastUsedBike(travelScanner);
+
+        //Return names of most used rental place
+        //getMostUsedRentalPlace(travelScanner);
+
+        //Return names of least used rental place
+        //getLeastUsedRentalPlace(travelScanner);
+
+        //Return names of most used return place
+        //getMostUsedReturnPlace(travelScanner);
+
+        //Return names of least used return place
+        //getLeastUsedReturnPlace(travelScanner);
+
+        //Return data of longes travel
+        getLongestRideData(travelScanner);
+
+
 
 
     }
@@ -58,5 +58,48 @@ public class Main {
             travels.add(travel);
         }
         return travels;
+    }
+    public static void getMostUsedBike(TravelScanner travelScanner){
+        System.out.println("Most used bikes number's:");
+        for (int x: travelScanner.getMostUsedBike()) {
+            System.out.println(x);
+        }
+    }
+    public static void getLeastUsedBike(TravelScanner travelScanner){
+        System.out.println("Least used bikes number's:");
+        for (int x: travelScanner.getLeastUsedBike()) {
+            System.out.println(x);
+        }
+    }
+    public static void getMostUsedRentalPlace(TravelScanner travelScanner){
+        System.out.println("Most used rental place is:");
+        for (String x: travelScanner.getMostUsedRentalPlace()) {
+            System.out.println(x);
+        }
+    }
+    public static void getLeastUsedRentalPlace(TravelScanner travelScanner){
+        System.out.println("Least used rental place is:");
+        for (String x: travelScanner.getLeastUsedRentalPlace()) {
+            System.out.println(x);
+        }
+    }
+    public static void getMostUsedReturnPlace(TravelScanner travelScanner){
+        System.out.println("Most used return place is:");
+        for (String x: travelScanner.getMostUsedRenturnPlace()) {
+            System.out.println(x);
+        }
+    }
+    public static void getLeastUsedReturnPlace(TravelScanner travelScanner){
+        System.out.println("Least used return place is:");
+        for (String x: travelScanner.getLeastUsedReturnPlace()) {
+            System.out.println(x);
+        }
+    }
+    public static void getLongestRideData(TravelScanner travelScanner){
+        System.out.printf("Longest ride id's: \n" + travelScanner.getLongestTravelId() +
+                "\nTime:\n" +
+                travelScanner.getTimeTravelInHours() + " hours " +
+                travelScanner.getTimeTravelInMinutes() + " minutes " +
+                travelScanner.getTimeTravelInSeconds() + " seconds");
     }
 }

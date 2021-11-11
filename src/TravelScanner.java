@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class TravelScanner {
@@ -5,12 +7,14 @@ public class TravelScanner {
     private Map<Integer, Integer> bikeMap;
     private Map<String, Integer> rentalPlaceMap;
     private Map<String, Integer> returnPlaceMap;
+    private Map<String, Integer> timeTravelMap;
 
     public TravelScanner(ArrayList<Travel> travels) {
         this.travels = travels;
         this.bikeMap = addBikeNumbersToMap(sortListOfBikeNumber());
         this.rentalPlaceMap = addRentalPlacesToMap(sortListOfRentalPlace());
         this.returnPlaceMap = addReturnPlacesToMap(sortListOfReturnPlace());
+        this.timeTravelMap = addTimeTravelMap();
     }
 
     private ArrayList<Integer> sortListOfBikeNumber(){
@@ -88,6 +92,33 @@ public class TravelScanner {
         }
         return returnPlaceMap;
     }
+    private Map<String, Integer> addTimeTravelMap(){
+        Map<String, Integer> timeTravelMap = new HashMap<>();
+        LocalTime startTime, endTime;
+        LocalDate startDate, endDate;
+        String[] startDateSplit = new String[2];
+        String[] endDateSplit = new String[2];
+        int secondsOfTravel, daysOfTravel;
+        for (int i = 1; i < travels.size(); i++) {
+
+            startDateSplit = travels.get(i).getStartTime().split(" ");
+            endDateSplit = travels.get(i).getEndTime().split(" ");
+
+            startDate = LocalDate.parse(startDateSplit[0]);
+            endDate = LocalDate.parse(endDateSplit[0]);
+            startTime = LocalTime.parse(startDateSplit[1]);
+            endTime = LocalTime.parse(endDateSplit[1]);
+
+            secondsOfTravel = endTime.toSecondOfDay() - startTime.toSecondOfDay();
+            daysOfTravel = endDate.getDayOfYear() - startDate.getDayOfYear();
+             if(secondsOfTravel>0 && (daysOfTravel == 0)) {
+                 timeTravelMap.put(travels.get(i).getId(), secondsOfTravel);
+             }
+
+        }
+        return timeTravelMap;
+    }
+
 
 
     public List<Integer> getMostUsedBike(){
@@ -155,6 +186,18 @@ public class TravelScanner {
         }
         return keys;
 
+    }
+    public Map<String, Integer> getLongestTravel(){
+        int maxValue = Collections.max(timeTravelMap.values());
+        String key = new String();
+        for (Map.Entry<String, Integer> entry : timeTravelMap.entrySet()) {
+            if (entry.getValue() == maxValue) {
+                key = entry.getKey();
+            }
+        }
+        Map<String,Integer> mapOfLongestRide = new HashMap<>();
+        mapOfLongestRide.put(key,timeTravelMap.get(key));
+        return mapOfLongestRide;
     }
 
 
